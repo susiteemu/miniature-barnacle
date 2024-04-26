@@ -1,0 +1,10 @@
+name: Status 500
+# Possible request to call _before_ this one
+prev_req:
+# Request url, may contain template variables in a form of {var}
+url: http://localhost:8000/status/500
+# HTTP method
+method: GET
+# HTTP headers as key-val list, e.g. X-Foo-Bar: SomeValue
+headers:
+body: >

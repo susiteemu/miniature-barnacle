@@ -1,0 +1,16 @@
+name: Echo
+# Possible request to call _before_ this one
+prev_req:
+# Request url, may contain template variables in a form of {var}
+url: http://localhost:8000/echo
+# HTTP method
+method: POST
+# HTTP headers as key-val list, e.g. X-Foo-Bar: SomeValue
+headers:
+  Content-Type: application/json
+  X-Foo-Bar: FoobarVal
+body: >
+  {
+    "id": 420,
+    "name": "ThePrimeagen"
+  }
