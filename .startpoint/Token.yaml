@@ -1,6 +1,6 @@
 name: Token
 prev_req:
-url: http://localhost:8000/token
+url: http://localhost:8000/auth/oauth2/token
 method: POST
 headers:
   Content-Type: 'application/x-www-form-urlencoded'

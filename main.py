@@ -17,7 +17,12 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import (
+    HTTPBasic,
+    HTTPBasicCredentials,
+    OAuth2PasswordBearer,
+    OAuth2PasswordRequestForm,
+)
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
@@ -34,7 +39,7 @@ app.add_middleware(
 
 """
 #
-# Authentication
+# Authentication: oauth2
 #
 """
 SECRET_KEY = "13ada2c991825d6ee515f4fff8d98bbaabab2dc4c52f77329b13c29f3af31433"
@@ -140,7 +145,7 @@ async def get_current_active_user(
     return current_user
 
 
-@app.post("/token")
+@app.post("/auth/oauth2/token")
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Token:
@@ -158,11 +163,27 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type="bearer")
 
 
-@app.get("/users/me/", response_model=User)
+@app.get("/auth/oauth2/users/me/", response_model=User)
 async def read_users_me(
     current_user: Annotated[User, Depends(get_current_active_user)],
 ):
     return current_user
+
+
+"""
+#
+# Authentication: basic auth
+#
+"""
+
+basicAuthSecurity = HTTPBasic()
+
+
+@app.get("/auth/basic/users/me")
+def read_current_user(
+    credentials: Annotated[HTTPBasicCredentials, Depends(basicAuthSecurity)]
+):
+    return {"username": credentials.username, "password": credentials.password}
 
 
 """
