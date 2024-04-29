@@ -1,3 +1,3 @@
 httpClient:
-  debug: true
+  debug: false
   enableTraceInfo: false

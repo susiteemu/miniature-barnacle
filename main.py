@@ -1,6 +1,7 @@
 import logging
 import random
 import string
+import time
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
@@ -248,6 +249,14 @@ def status(status) -> Response:
 @app.post("/echo")
 async def echo(request: Request) -> Response:
     body = await request.body()
+    return Response(headers=request.headers, content=body)
+
+
+@app.post("/echo/{wait}")
+async def echo(request: Request) -> Response:
+    body = await request.body()
+    wait = int(request.path_params["wait"])
+    time.sleep(wait)
     return Response(headers=request.headers, content=body)
 
 
