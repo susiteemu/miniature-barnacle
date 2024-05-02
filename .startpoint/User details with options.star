@@ -1,5 +1,4 @@
 """
-meta:name: User details with options
 meta:prev_req: Token
 doc:url: http://localhost:8000/auth/oauth2/users/me/
 doc:method: GET

@@ -1,8 +1,7 @@
-name: Random plaintext
 # Possible request to call _before_ this one
 prev_req:
 # Request url, may contain template variables in a form of {var}
-url: http://localhost:8000/random/plaintext
+url: http://localhost:8000/random/json
 # HTTP method
 method: GET
 # HTTP headers as key-val list, e.g. X-Foo-Bar: SomeValue

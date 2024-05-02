@@ -1,4 +1,3 @@
-name: Long html
 # Possible request to call _before_ this one
 prev_req:
 # Request url, may contain template variables in a form of {var}
