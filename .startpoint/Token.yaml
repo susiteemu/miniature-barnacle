@@ -9,3 +9,5 @@ body:
   username: 'johndoe'
   password: 'secret'
   grant_type: 'password'
+options:
+  print: false

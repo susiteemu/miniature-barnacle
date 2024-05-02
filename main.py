@@ -1,8 +1,6 @@
+import json
 import logging
-import random
-import string
 import time
-import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
@@ -189,49 +187,45 @@ def read_current_user(
 
 """
 #
-# Random data endpoints
+# Random (hey! I randomly searched for some documents) data endpoints
 #
 """
 
 
-def generate_random_string(length: int) -> str:
-    return "".join(random.choices(string.ascii_letters + string.digits, k=length))
-
-
-def generate_random_xml() -> str:
-    root = ET.Element("random_data")
-    for _ in range(3):
-        child = ET.SubElement(root, generate_random_string(5))
-        child.text = generate_random_string(10)
-    return ET.tostring(root, encoding="unicode", method="xml")
-
-
-def generate_random_html() -> str:
-    html_content = f"<html><body>{generate_random_string(50)}</body></html>"
-    return html_content
-
-
 @app.get("/random/json")
 def random_json() -> Response:
-    return JSONResponse(content={"data": generate_random_string(10)})
+    f = open("resources/example.json", mode="r")
+    data = f.read()
+    f.close()
+    j = json.loads(data)
+    return JSONResponse(content=j)
 
 
 @app.get("/random/xml")
 def random_xml() -> Response:
+    f = open("resources/books.xml", mode="r")
+    data = f.read()
+    f.close()
     return Response(
-        content=generate_random_xml(),
+        content=data,
         media_type="application/xml",
     )
 
 
 @app.get("/random/plaintext")
 def random_plaintext() -> Response:
-    return Response(content=generate_random_string(50), media_type="text/plain")
+    f = open("resources/plain.txt", mode="r")
+    data = f.read()
+    f.close()
+    return Response(content=data, media_type="text/plain")
 
 
-@app.get("/random/html")
-def random_html() -> HTMLResponse:
-    return HTMLResponse(content=generate_random_html(), status_code=200)
+@app.get("/random/html/{type}")
+def random_html(type) -> HTMLResponse:
+    f = open(f"resources/{type}.html", mode="r")
+    data = f.read()
+    f.close()
+    return HTMLResponse(content=data, status_code=200)
 
 
 """
