@@ -10,8 +10,8 @@ headers:
   X-Foo-Bar: FoobarVal
 body: >
   {
-    "id": 420,
-    "name": "ThePrimeagen"
+    "id": 1,
+    "name": "Jane"
   }
 options:
   httpClient:

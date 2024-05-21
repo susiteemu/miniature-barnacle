@@ -6,10 +6,10 @@ url: http://localhost:8000/echo
 method: POST
 # HTTP headers as key-val list, e.g. X-Foo-Bar: SomeValue
 headers:
-  Content-Type: application/json
+  Content-Type: application/xml
   X-Foo-Bar: FoobarVal
 body: >
-  {
-    "id": 1,
-    "name": "Jane"
-  }
+  <root>
+    <id>1</id>
+    <name>Jane</name>
+  </root>
